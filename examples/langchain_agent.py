@@ -26,9 +26,17 @@ engine = SentinelGuard()
 
 engine.register_guard(
     ToolExecutionGuard(
+        allowed_tools=["read_file"]
+    )
+)
+
+'''
+engine.register_guard(
+    ToolExecutionGuard(
         allowed_tools=["read_file", "delete_file"]
     )
 )
+'''
 
 
 
