@@ -56,7 +56,7 @@ class SentinelGuard:
 
             except Exception:
                 return GuardDecision(
-                    action=Action.DENY,
+                    action=Action.Deny,
                     reason="Security guard evaluation failed.",
                     guard_name="SentinelGuard"
                 )
