@@ -19,24 +19,35 @@ from sentinelguard.audit.logger import AuditLogger
 # 1. SENTINELGUARD SECURITY CONFIGURATION
 
 
+from sentinelguard.registry import AgentRegistry
+from sentinelguard.policy_store import PolicyStore
+
+AGENT_ID = "security_analyst_agent"
+
+registry = AgentRegistry("config/agents.json")
+store = PolicyStore("config/policies.json")
+
+agent_config = registry.get_agent(AGENT_ID)
+
+if agent_config is None:
+    raise RuntimeError("Agent is not registered")
+
+if not agent_config["enabled"]:
+    raise RuntimeError("Agent is disabled")
+
+policy = store.get_policy(
+    agent_config["policy_id"]
+)
+
+
 engine = SentinelGuard()
 
-
-
-
 engine.register_guard(
     ToolExecutionGuard(
-        allowed_tools=["read_file"]
+        allowed_tools=policy["allowed_tools"]
     )
 )
 
-'''
-engine.register_guard(
-    ToolExecutionGuard(
-        allowed_tools=["read_file", "delete_file"]
-    )
-)
-'''
 
 
 
@@ -58,8 +69,8 @@ executor = SecureToolExecutor(
 
 
 # The agent's tools operate within Windows Documents.
-ALLOWED_DIRECTORY = (
-    Path.home() / "Documents"
+ALLOWED_DIRECTORY = Path(
+    r"C:\Users\womackt4\OneDrive - La Salle University\Documents"
 ).resolve()
 
 

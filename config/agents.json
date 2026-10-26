@@ -1,0 +1,12 @@
+
+{
+  "agents": [
+    {
+      "agent_id": "security_analyst_agent",
+      "name": "Security Analyst",
+      "framework": "langchain",
+      "policy_id": "analyst_policy",
+      "enabled": true
+    }
+  ]
+}

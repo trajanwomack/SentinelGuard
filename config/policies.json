@@ -1,0 +1,10 @@
+
+{
+  "policies": {
+    "analyst_policy": {
+      "allowed_tools": [
+        "read_file"
+      ]
+    }
+  }
+}
